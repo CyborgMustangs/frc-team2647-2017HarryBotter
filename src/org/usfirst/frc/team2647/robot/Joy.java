@@ -13,9 +13,11 @@ public class Joy {
 		public Button(int buttonNum, boolean buttonState) {
 			num = buttonNum;
 			state = buttonState;
+			prevState = state;
 		}
 		public int num;
 		public boolean state;
+		public boolean prevState;
 	}
 	public static class Axis {
 		public Axis(int axisNum, double axisState) {
@@ -43,9 +45,18 @@ public class Joy {
 		if (axes_.containsKey(name)) return axes_.get(name).state;
 		return 0.0;
 	}
+	public boolean wasPressed(String name) {
+		if (button.state == true && button.state != button.prevState) return true;
+		return false;
+	}
+	public boolean wasReleased() {
+		if (button.state == false && button.state != button.prevState) return true;
+		return false;
+	}
 
 	public void update() {
 		for (Button button : buttons_.values()) {
+			button.prevState = button.state;
 			button.state = joystick_.getRawButton(button.num);
 		}
 		for (Axis axis : axes_.values()) {
