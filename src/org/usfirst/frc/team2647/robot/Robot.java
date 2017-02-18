@@ -119,11 +119,11 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		// Input Checking
 		input.update();
-		drivetrain.tankdrive(-input.getAxis(X360, "LSTICKY") * 0.7, -input.getAxis(X360, "RSTICKY") * 0.7);
+		drivetrain.tankdrive(-input.getJoy(X360).getAxis("LSTICKY") * 0.7, -input.getJoy(X360).getAxis("RSTICKY") * 0.7);
 		//shooter.shoot(x3d.getRawButton(1), x3d.getRawButton(5), x3d.getRawButton(6), x3d.getRawButton(3), x3d.getRawButton(4));
-		gearBox.setDoors(input.getAxis(X3D, "SLIDER"));
+		gearBox.setDoors(input.getJoy(X3D).getAxis("SLIDER"));
 		//climber.climb(x3d.getRawButton(8), x3d.getRawButton(7));
-		feeder.intake(input.getButton(X360, "LB"), input.getButton("RB"));
+		feeder.intake(input.getJoy(X360).getButton("LB"), input.getJoy(X360).getButton("RB"));
 	}
 
 	/**
