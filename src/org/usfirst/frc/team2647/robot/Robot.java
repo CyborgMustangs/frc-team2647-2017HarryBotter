@@ -47,29 +47,29 @@ public class Robot extends IterativeRobot {
 	//When this is done with, be sure to only init the buttons you need or you'll be wasting CPU cycles!!!
 		
 	//xbox 360
-		input.setButton(X360, "A", 1);
-		input.setButton(X360, "B", 2);
-		input.setButton(X360, "X", 3);
-		input.setButton(X360, "Y", 4);
-		input.setButton(X360, "LB", 5);
-		input.setButton(X360, "RB", 6);
-		input.setButton(X360, "SELECT", 7);
-		input.setButton(X360, "START", 8);
-		input.setButton(X360, "LSTICK", 9);
-		input.setButton(X360, "RSTICK", 10);
+		input.getJoy(X360).setButton("A", 1);
+		input.getJoy(X360).setButton("B", 2);
+		input.getJoy(X360).setButton("X", 3);
+		input.getJoy(X360).setButton("Y", 4);
+		input.getJoy(X360).setButton("LB", 5);
+		input.getJoy(X360).setButton("RB", 6);
+		input.getJoy(X360).setButton("SELECT", 7);
+		input.getJoy(X360).setButton("START", 8);
+		input.getJoy(X360).setButton("LSTICK", 9);
+		input.getJoy(X360).setButton("RSTICK", 10);
 		
-		input.setAxis(X360, "LSTICKX", 0);
-		input.setAxis(X360, "LSTICKY", 1);
-		input.setAxis(X360, "LT", 2);
-		input.setAxis(X360, "RT", 3);
-		input.setAxis(X360, "RSTICKX", 4);
-		input.setAxis(X360, "RSTICKY", 5);
+		input.getJoy(X360).setAxis("LSTICKX", 0);
+		input.getJoy(X360).setAxis("LSTICKY", 1);
+		input.getJoy(X360).setAxis("LT", 2);
+		input.getJoy(X360).setAxis("RT", 3);
+		input.getJoy(X360).setAxis("RSTICKX", 4);
+		input.getJoy(X360).setAxis("RSTICKY", 5);
 	//extreme 3d joystick
 		//more to be defined
-		input.setAxis(X3D, "X", 0);
-		input.setAxis(X3D, "Y", 1);
-		input.setAxis(X3D, "Z", 2);
-		input.setAxis(X3D, "SLIDER", 3);
+		input.getJoy(X3D).setAxis("X", 0);
+		input.getJoy(X3D).setAxis("Y", 1);
+		input.getJoy(X3D).setAxis("Z", 2);
+		input.getJoy(X3D).setAxis("SLIDER", 3);
 	}
 	
 	/**
