@@ -1,7 +1,6 @@
 package org.usfirst.frc.team2647.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.ctre.CANTalon;
@@ -11,6 +10,7 @@ import org.usfirst.frc.team2647.robot.SnitchPitch;
 import org.usfirst.frc.team2647.robot.HouseGearfindor;
 import org.usfirst.frc.team2647.robot.Baskilisk;
 import org.usfirst.frc.team2647.robot.Leviosa;
+import org.usfirst.frc.team2647.robot.Input;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -20,13 +20,12 @@ import org.usfirst.frc.team2647.robot.Leviosa;
  * directory.
  */
 public class Robot extends IterativeRobot {
-
+	
+	Input input = Input.getInstance();
 	// Xbox 360 gamepad
-	Joystick gamepad;
-	static final int xb_A = 1, xb_B = 2, xb_X = 3, xb_Y = 4,
-					 xb_LB = 5, xb_RB = 6, xb_SELECT = 7, xb_START = 8,
-					 xb_LSTICK = 9, xb_RSTICK = 10;
-	static final int xb_LSTICKX = 0, xb_LSTICKY = 1,
+	static final int X360 = 2;
+	static final int X3D = 0;
+		xb_LSTICKX = 0, xb_LSTICKY = 1,
 					 xb_LT = 2, xb_RT = 3,
 					 xb_RSTICKX = 4, xb_RSTICKY = 5;
 	
@@ -49,6 +48,35 @@ public class Robot extends IterativeRobot {
 	// Climber
 	Leviosa climber;
 	
+	public void initControllers() {
+	//When this is done with, be sure to only init the buttons you need or you'll be wasting CPU cycles!!!
+		
+	//xbox 360
+		input.setButton(X360, "A", 1);
+		input.setButton(X360, "B", 2);
+		input.setButton(X360, "X", 3);
+		input.setButton(X360, "Y", 4);
+		input.setButton(X360, "LB", 5);
+		input.setButton(X360, "RB", 6);
+		input.setButton(X360, "SELECT", 7);
+		input.setButton(X360, "START", 8);
+		input.setButton(X360, "LSTICK", 9);
+		input.setButton(X360, "RSTICK", 10);
+		
+		input.setAxis(X360, "LSTICKX", 0);
+		input.setAxis(X360, "LSTICKY", 1);
+		input.setAxis(X360, "LT", 2);
+		input.setAxis(X360, "RT", 3);
+		input.setAxis(X360, "RSTICKX", 4);
+		input.setAxis(X360, "RSTICKY", 5);
+	//extreme 3d joystick
+		//more to be defined
+		input.setAxis(X3D, "X", 0);
+		input.setAxis(X3D, "Y", 1);
+		input.setAxis(X3D, "Z", 2);
+		input.setAxis(X3D, "SLIDER", 3);
+	}
+	
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -62,6 +90,7 @@ public class Robot extends IterativeRobot {
 		gearBox = new HouseGearfindor(3,4); // PWM ports. Left door servo, right door servo.
 		feeder = new Baskilisk(5);
 		climber = new Leviosa(6);
+		initControllers();
 	}
 
 	/**
