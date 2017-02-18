@@ -52,7 +52,7 @@ public class Joy {
 		}
 		return false;
 	}
-	public boolean wasReleased() {
+	public boolean wasReleased(String name) {
 		if (buttons_.containsKey(name)) {
 			Button button = buttons_.get(name).state;
 			if (button.state == false && button.state != button.prevState) return true;
