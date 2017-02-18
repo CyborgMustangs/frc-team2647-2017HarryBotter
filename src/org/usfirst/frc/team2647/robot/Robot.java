@@ -45,29 +45,29 @@ public class Robot extends IterativeRobot {
 	//When this is done with, be sure to only init the buttons you need or you'll be wasting CPU cycles!!!
 		
 	//xbox 360
-		Input.getJoy(X360).setButton("A", 1);
-		Input.getJoy(X360).setButton("B", 2);
-		Input.getJoy(X360).setButton("X", 3);
-		Input.getJoy(X360).setButton("Y", 4);
-		Input.getJoy(X360).setButton("LB", 5);
-		Input.getJoy(X360).setButton("RB", 6);
-		Input.getJoy(X360).setButton("SELECT", 7);
-		Input.getJoy(X360).setButton("START", 8);
-		Input.getJoy(X360).setButton("LSTICK", 9);
-		Input.getJoy(X360).setButton("RSTICK", 10);
+		input.getJoy(X360).setButton("A", 1);
+		input.getJoy(X360).setButton("B", 2);
+		input.getJoy(X360).setButton("X", 3);
+		input.getJoy(X360).setButton("Y", 4);
+		input.getJoy(X360).setButton("LB", 5);
+		input.getJoy(X360).setButton("RB", 6);
+		input.getJoy(X360).setButton("SELECT", 7);
+		input.getJoy(X360).setButton("START", 8);
+		input.getJoy(X360).setButton("LSTICK", 9);
+		input.getJoy(X360).setButton("RSTICK", 10);
 		
-		Input.getJoy(X360).setAxis("LSTICKX", 0);
-		Input.getJoy(X360).setAxis("LSTICKY", 1);
-		Input.getJoy(X360).setAxis("LT", 2);
-		Input.getJoy(X360).setAxis("RT", 3);
-		Input.getJoy(X360).setAxis("RSTICKX", 4);
-		Input.getJoy(X360).setAxis("RSTICKY", 5);
+		input.getJoy(X360).setAxis("LSTICKX", 0);
+		input.getJoy(X360).setAxis("LSTICKY", 1);
+		input.getJoy(X360).setAxis("LT", 2);
+		input.getJoy(X360).setAxis("RT", 3);
+		input.getJoy(X360).setAxis("RSTICKX", 4);
+		input.getJoy(X360).setAxis("RSTICKY", 5);
 	//extreme 3d joystick
 		//more to be defined
-		Input.getJoy(X3D).setAxis("X", 0);
-		Input.getJoy(X3D).setAxis("Y", 1);
-		Input.getJoy(X3D).setAxis("Z", 2);
-		Input.getJoy(X3D).setAxis("SLIDER", 3);
+		input.getJoy(X3D).setAxis("X", 0);
+		input.getJoy(X3D).setAxis("Y", 1);
+		input.getJoy(X3D).setAxis("Z", 2);
+		input.getJoy(X3D).setAxis("SLIDER", 3);
 	}
 	
 	/**
@@ -114,12 +114,12 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		// Input Checking
-		Input.update();
-		drivetrain.tankdrive(-Input.getJoy(X360).getAxis("LSTICKY") * 0.7, -Input.getJoy(X360).getAxis("RSTICKY") * 0.7);
+		input.update();
+		drivetrain.tankdrive(-input.getJoy(X360).getAxis("LSTICKY") * 0.7, -input.getJoy(X360).getAxis("RSTICKY") * 0.7);
 		//shooter.shoot(x3d.getRawButton(1), x3d.getRawButton(5), x3d.getRawButton(6), x3d.getRawButton(3), x3d.getRawButton(4));
-		gearBox.setDoors(Input.getJoy(X3D).getAxis("SLIDER"));
+		gearBox.setDoors(input.getJoy(X3D).getAxis("SLIDER"));
 		//climber.climb(x3d.getRawButton(8), x3d.getRawButton(7));
-		feeder.intake(Input.getJoy(X360).getButton("LB"), Input.getJoy(X360).getButton("RB"));
+		feeder.intake(input.getJoy(X360).getButton("LB"), input.getJoy(X360).getButton("RB"));
 	}
 
 	/**
