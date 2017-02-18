@@ -79,12 +79,10 @@ public final class Input {
 		joysticks_.get(joyPort).setAxis(name, axisNum);
 	}
 	public static boolean getButton(int joyPort, String name) {
-		checkJoystick(joyPort);
-		return joysticks_.get(joyPort).getButton(name);
+		if (joysticks_.containsKey(joyPort)) return joysticks_.get(joyPort).getButton(name);
 	}
 	public static double getAxis(int joyPort, String name) {
-		checkJoystick(joyPort);
-		return joysticks_.get(joyPort).getAxis(name);
+		if (joysticks_.containsKey(joyPort)) return joysticks_.get(joyPort).getAxis(name);
 	}
 	public static void update() {
 		for (Joy joystick : joysticks_.values()) {
