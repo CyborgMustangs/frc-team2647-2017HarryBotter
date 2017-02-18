@@ -45,9 +45,11 @@ public final class Input {
 		}
 		public boolean getButton(String name) {
 			if (buttons_.containsKey(name)) return buttons_.get(name).state;
+			return false;
 		}
 		public double getAxis(String name) {
 			if (axes_.containsKey(name)) return axes_.get(name).state;
+			return 0.0;
 		}
 		
 		public void update() {
