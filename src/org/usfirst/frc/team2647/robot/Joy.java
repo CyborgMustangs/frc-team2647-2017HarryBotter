@@ -4,28 +4,28 @@ import java.util.Map;
 
 import edu.wpi.first.wpilibj.Joystick;
 
-public class Button {
-	public Button(int buttonNum, boolean buttonState) {
-		num = buttonNum;
-		state = buttonState;
-	}
-	public int num;
-	public boolean state;
-}
-public class Axis {
-	public Axis(int axisNum, double axisState) {
-		num = axisNum;
-		state = axisState;
-	}
-	public int num;
-	public double state;
-}
-
 public class Joy {
 	private Joystick joystick_;
 	private java.util.HashMap<String, Button> buttons_;
 	private java.util.HashMap<String, Axis> axes_;
-
+	
+	public static class Button {
+		public Button(int buttonNum, boolean buttonState) {
+			num = buttonNum;
+			state = buttonState;
+		}
+		public int num;
+		public boolean state;
+	}
+	public static class Axis {
+		public Axis(int axisNum, double axisState) {
+			num = axisNum;
+			state = axisState;
+		}
+		public int num;
+		public double state;
+	}
+	
 	public Joy(int port) {
 		joystick_ = new Joystick(port);
 	}
