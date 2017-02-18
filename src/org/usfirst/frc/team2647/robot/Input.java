@@ -23,10 +23,12 @@ public final class Input {
 			joystick_ = new Joystick(port);
 		}
 		public void addButton(String name, int button) {
-			buttons_.put(name, button);
+			buttonNames_.put(name, button);
+			buttons_.put(button, joystick_getRawButton(button));
 		}
 		public void addAxis(String name, int axis) {
-			axes_.put(name, axis);
+			axisNames_.put(name, axis);
+			axes_.put(axis, joystick_getRawAxis(axis));
 		}
 		public boolean getButton(String name) {
 			if (buttonNames_.containsKey(name)) return buttons_.get(buttonNames_.get(name));
