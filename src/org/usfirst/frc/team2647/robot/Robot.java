@@ -79,8 +79,6 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		drivetrain = new Firebolt(1, 2, 3, 4); // CAN ports. Front left motor, rear left motor, front right motor, rear right motord	
-		gamepad = new Joystick(2);
-		x3d = new Joystick(0);
 		shooter = new SnitchPitch(0, 1, 2); // PWN ports. Top motor, bottom motor, piston motor.
 		gearBox = new HouseGearfindor(3,4); // PWM ports. Left door servo, right door servo.
 		feeder = new Baskilisk(5);
