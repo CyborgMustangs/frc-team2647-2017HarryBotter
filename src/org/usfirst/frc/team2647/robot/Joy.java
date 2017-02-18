@@ -47,14 +47,14 @@ public class Joy {
 	}
 	public boolean wasPressed(String name) {
 		if (buttons_.containsKey(name)) {
-			Button button = buttons_.get(name).state;
+			Button button = buttons_.get(name);
 			if (button.state == true && button.state != button.prevState) return true;
 		}
 		return false;
 	}
 	public boolean wasReleased(String name) {
 		if (buttons_.containsKey(name)) {
-			Button button = buttons_.get(name).state;
+			Button button = buttons_.get(name);
 			if (button.state == false && button.state != button.prevState) return true;
 		}
 		return false;
