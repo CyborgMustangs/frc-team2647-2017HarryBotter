@@ -72,11 +72,11 @@ public final class Input {
 	
 	public static void setButton(int joyPort, String name, int buttonNum) {
 		checkJoystick(joyPort);
-		return joysticks_.get(joyPort).setButton(name, buttonNum);
+		joysticks_.get(joyPort).setButton(name, buttonNum);
 	}
 	public static void setAxis(int joyPort, String name, int axisNum) {
 		checkJoystick(joyPort);
-		return joysticks_.get(joyPort).setAxis(name, axisNum);
+		joysticks_.get(joyPort).setAxis(name, axisNum);
 	}
 	public static boolean getButton(int joyPort, String name) {
 		checkJoystick(joyPort);
