@@ -4,9 +4,15 @@ import java.util.Map;
 
 import edu.wpi.first.wpilibj.Joystick;
 
-public class Input {
+public final class Input {
 	
-	private class Joy {
+	private static final Input INSTANCE = new Input();
+    private Input() {}
+    public static Input getInstance() {
+        return INSTANCE;
+    }
+	
+	private static class Joy {
 		private Joystick joystick_;
 		private java.util.HashMap<Integer, Boolean> buttons_;
 		private java.util.HashMap<Integer, Double> sticks_;
@@ -40,23 +46,23 @@ public class Input {
 		}
 	}
 	
-	private java.util.HashMap<Integer, Joy> joysticks_;
+	private static java.util.HashMap<Integer, Joy> joysticks_;
 	
 	//checks to see if the joystick map contains the current joystick; if it doesn't it adds it.
-	private void checkJoystick(int joyPort) {
+	private static void checkJoystick(int joyPort) {
 		if (!(joysticks_.containsKey(joyPort)))
 			joysticks_.put(joyPort, new Joy(joyPort));
 	}
 	
-	public boolean getButton(int joyPort, int key) {
+	public static boolean getButton(int joyPort, int key) {
 		checkJoystick(joyPort);
 		return joysticks_.get(joyPort).getButton(key);
 	}
-	public double getStick(int joyPort, int key) {
+	public static double getStick(int joyPort, int key) {
 		checkJoystick(joyPort);
 		return joysticks_.get(joyPort).getStick(key);
 	}
-	public void update() {
+	public static void update() {
 		for (Joy joystick : joysticks_.values()) {
 		    joystick.update();
 		}
