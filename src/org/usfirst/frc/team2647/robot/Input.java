@@ -12,37 +12,52 @@ public final class Input {
 		return INSTANCE;
 	}
 	
+	private static class Button {
+		public Button(int buttonNum, boolean buttonState) {
+			num = buttonNum;
+			state = buttonState;
+		}
+		public int num;
+		public boolean state;
+	}
+	private static class Axis {
+		public Axis(int axisNum, double axisState) {
+			num = axisNum;
+			state = axisState;
+		}
+		public int num;
+		public double state;
+	}
+	
 	private static class Joy {
 		private Joystick joystick_;
-		private java.util.HashMap<Integer, Boolean> buttons_;
-		private java.util.HashMap<Integer, Double> axes_;
-		private java.util.HashMap<String, Integer> buttonNames_;
-		private java.util.HashMap<String, Integer> axisNames_;
+		private java.util.HashMap<String, Button> buttons_;
+		private java.util.HashMap<String, Axis> axes_;
 		
 		public Joy(int port) {
 			joystick_ = new Joystick(port);
 		}
-		public void addButton(String name, int button) {
-			buttonNames_.put(name, button);
-			buttons_.put(button, joystick_getRawButton(button));
+		public void setButton(String name, int buttonNum) {
+			Button button = new Button(buttonNum, joystick_.getRawButton(buttonNum));
+			buttons_.put(name, button);
 		}
-		public void addAxis(String name, int axis) {
-			axisNames_.put(name, axis);
-			axes_.put(axis, joystick_getRawAxis(axis));
+		public void setAxis(String name, int axisNum) {
+			Axis axis = new Axis(axisNum, joystick_.getRawAxis(axisNum));
+			axes_.put(name, axis);
 		}
 		public boolean getButton(String name) {
-			if (buttonNames_.containsKey(name)) return buttons_.get(buttonNames_.get(name));
+			if (buttonNames_.containsKey(name)) return buttons_.get(name).state;
 		}
 		public double getAxis(String name) {
-			if (axisNames_.containsKey(name)) return axes_.get(axisNames_.get(name));
+			if (axisNames_.containsKey(name)) return axes_.get(name).state;
 		}
 		
 		public void update() {
-			for (int button : buttons_.keySet()) {
-				buttons_.put(key, joystick_.getRawButton(button));
+			for (Button button : buttons_.values()) {
+				button.state = joystick_.getRawButton(button.num);
 			}
-			for (int axis : axes_.keySet()) {
-				axes_.put(key, joystick_.getRawAxis(axis));
+			for (Axis axis : axes_.values()) {
+				axis.state = joystick_.getRawAxis(axis.num);
 			}
 		}
 	}
@@ -55,13 +70,13 @@ public final class Input {
 			joysticks_.put(joyPort, new Joy(joyPort));
 	}
 	
-	public static void addButton(int joyPort, String name, int button) {
+	public static void setButton(int joyPort, String name, int buttonNum) {
 		checkJoystick(joyPort);
-		return joysticks_.get(joyPort).addButton(name, button);
+		return joysticks_.get(joyPort).setButton(name, buttonNum);
 	}
-	public static void addAxis(int joyPort, String name, int axis) {
+	public static void setAxis(int joyPort, String name, int axisNum) {
 		checkJoystick(joyPort);
-		return joysticks_.get(joyPort).addAxis(name, axis);
+		return joysticks_.get(joyPort).setAxis(name, axisNum);
 	}
 	public static boolean getButton(int joyPort, String name) {
 		checkJoystick(joyPort);
