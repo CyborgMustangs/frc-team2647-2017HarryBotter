@@ -46,11 +46,17 @@ public class Joy {
 		return 0.0;
 	}
 	public boolean wasPressed(String name) {
-		if (buttons_.containsKey(name)) if (buttons_.get(name).state == true && buttons_.get(name).state != buttons_.get(name).prevState) return true;
+		if (buttons_.containsKey(name)) {
+			Button button = buttons_.get(name).state;
+			if (button.state == true && button.state != button.prevState) return true;
+		}
 		return false;
 	}
 	public boolean wasReleased() {
-		if (buttons_.containsKey(name)) if (buttons_.get(name).state == false && buttons_.get(name).state != buttons_.get(name).prevState) return true;
+		if (buttons_.containsKey(name)) {
+			Button button = buttons_.get(name).state;
+			if (button.state == false && button.state != button.prevState) return true;
+		}
 		return false;
 	}
 
