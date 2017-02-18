@@ -3,13 +3,6 @@ package org.usfirst.frc.team2647.robot;
 import org.usfirst.frc.team2647.robot.Joy;
 
 public final class Input {
-	
-	private static final Input INSTANCE = new Input();
-	private Input() {}
-	public static Input getInstance() {
-		return INSTANCE;
-	}
-	
 	private static java.util.HashMap<Integer, Joy> joysticks_;
 	
 	public static Joy getJoy(int joyPort) {
