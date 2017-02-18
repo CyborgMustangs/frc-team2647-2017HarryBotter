@@ -7,10 +7,10 @@ import edu.wpi.first.wpilibj.Joystick;
 public final class Input {
 	
 	private static final Input INSTANCE = new Input();
-    private Input() {}
-    public static Input getInstance() {
-        return INSTANCE;
-    }
+	private Input() {}
+	public static Input getInstance() {
+		return INSTANCE;
+	}
 	
 	private static class Joy {
 		private Joystick joystick_;
