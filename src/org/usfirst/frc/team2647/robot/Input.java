@@ -20,19 +20,13 @@ public final class Input {
 		public Joy(int port) {
 			joystick_ = new Joystick(port);
 		}
-		private void checkButton(int key) {
-			if (!(buttons_.containsKey(key))) buttons_.put(key, joystick_.getRawButton(key));
-		}
-		private void checkStick(int key) {
-			if (!(sticks_.containsKey(key))) sticks_.put(key, joystick_.getRawAxis(key));
-		}
-		
+
 		public boolean getButton(int key) {
-			checkButton(key);
+			if (!(buttons_.containsKey(key))) buttons_.put(key, joystick_.getRawButton(key));
 			return buttons_.get(key);
 		}
 		public double getStick(int key) {
-			checkStick(key);
+			if (!(sticks_.containsKey(key))) sticks_.put(key, joystick_.getRawAxis(key));
 			return sticks_.get(key);
 		}
 		
