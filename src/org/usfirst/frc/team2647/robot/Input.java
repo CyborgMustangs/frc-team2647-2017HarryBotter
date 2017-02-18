@@ -38,18 +38,16 @@ public final class Input {
 			joystick_ = new Joystick(port);
 		}
 		public void setButton(String name, int buttonNum) {
-			Button button = new Button(buttonNum, joystick_.getRawButton(buttonNum));
-			buttons_.put(name, button);
+			buttons_.put(name, new Button(buttonNum, joystick_.getRawButton(buttonNum)));
 		}
 		public void setAxis(String name, int axisNum) {
-			Axis axis = new Axis(axisNum, joystick_.getRawAxis(axisNum));
-			axes_.put(name, axis);
+			axes_.put(name, new Axis(axisNum, joystick_.getRawAxis(axisNum)));
 		}
 		public boolean getButton(String name) {
-			if (buttonNames_.containsKey(name)) return buttons_.get(name).state;
+			if (buttons_.containsKey(name)) return buttons_.get(name).state;
 		}
 		public double getAxis(String name) {
-			if (axisNames_.containsKey(name)) return axes_.get(name).state;
+			if (axes_.containsKey(name)) return axes_.get(name).state;
 		}
 		
 		public void update() {
