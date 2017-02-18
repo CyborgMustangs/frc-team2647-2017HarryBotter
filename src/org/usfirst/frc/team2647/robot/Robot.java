@@ -24,14 +24,9 @@ public class Robot extends IterativeRobot {
 	Input input = Input.getInstance();
 	// Xbox 360 gamepad
 	static final int X360 = 2;
-	static final int X3D = 0;
-		xb_LSTICKX = 0, xb_LSTICKY = 1,
-					 xb_LT = 2, xb_RT = 3,
-					 xb_RSTICKX = 4, xb_RSTICKY = 5;
 	
 	// Extreme 3D Joystick
-	Joystick x3d;
-	static final int x3d_X = 0, x3d_Y = 1, x3d_Z = 2, x3d_Slider = 3;
+	static final int X3D = 0;
 	
 	// Drivetrain
 	Firebolt drivetrain;
