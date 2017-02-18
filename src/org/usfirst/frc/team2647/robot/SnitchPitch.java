@@ -17,7 +17,8 @@ public class SnitchPitch {
 	double flywheelsRevDeltaTime;
 	
 	
-	public SnitchPitch(int topMotorPort, int botMotorPort, int pistonPort){
+	public SnitchPitch(int topMotorPort, int botMotorPort, int pistonPort)
+	{
 		top = new Spark(topMotorPort);
 		bot = new Spark(botMotorPort);
 		piston = new Talon(pistonPort);
@@ -27,42 +28,52 @@ public class SnitchPitch {
 		flywheelsRevDeltaTime = 0.0;
 	}
 	
-	public void rawRapidFire(boolean fire){
-		if(fire){
-			top.set(1.0);
-			bot.set(1.0);
-			piston.set(1.0);
-		}
-		else{
-			top.set(0.0);
-			bot.set(0.0);
-			piston.set(0.0);
-		}
+	/* The next two functions are made private because they are used internally 
+	 * in shoot() to prevent issues with double-assignment and interruption. 
+	 */
+	private void rawFlywheels(boolean forward, boolean backward)
+	{
+		if(forward){ top.set(1.0); bot.set(1.0); }
+		else if(backward){ top.set(-1.0); bot.set(-1.0); }
+		else{ top.set(0.0); bot.set(0.0); }
 	}
 	
-	public void controlledRapidFire(boolean fire){
-		if(fire){
-			if(flywheelsRevved){
-				top.set(1.0);
-				bot.set(1.0);
-				piston.set(1.0);
-			}else{
-				if(!flywheelsTimeStarted){
+	private void rawPiston(boolean forward, boolean backward)
+	{
+		if(forward) piston.set(1.0);
+		else if(backward) piston.set(-1.0);
+		else{ piston.set(0.0); }
+	}
+	
+	public void shoot(boolean controlledFire, boolean flywheelsForward, 
+					  boolean flywheelsBackward, boolean pistonForward, 
+					  boolean pistonBackward)
+	{
+		if(controlledFire)
+		{
+			if(flywheelsRevved)
+			{
+				rawFlywheels(true, false);
+				rawPiston(true, false);
+			}else
+			{
+				if(!flywheelsTimeStarted)
+				{
 					flywheelsRevInitTime = Timer.getFPGATimestamp();
 					flywheelsTimeStarted = true;
 				}
-				top.set(1.0);
-				bot.set(1.0);
+				rawFlywheels(true, false);
 				flywheelsRevDeltaTime = Timer.getFPGATimestamp() - flywheelsRevInitTime;
 				flywheelsRevved = (flywheelsRevDeltaTime > flywheelsRevTargetTime) ? true : false;
 			}
-		}else{
+		}else
+		{
 			flywheelsTimeStarted = false;
 			flywheelsRevved = false;
 			flywheelsRevDeltaTime = 0.0;
-			top.set(0.0);
-			bot.set(0.0);
-			piston.set(0.0);
+			
+			rawFlywheels(flywheelsForward, flywheelsBackward);
+			rawPiston(pistonForward, pistonBackward);
 		}
 	}
 }
