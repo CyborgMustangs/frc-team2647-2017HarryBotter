@@ -118,6 +118,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		// Input Checking
+		input.update();
 		drivetrain.tankdrive(-input.getAxis(X360, "LSTICKY") * 0.7, -input.getAxis(X360, "RSTICKY") * 0.7);
 		//shooter.shoot(x3d.getRawButton(1), x3d.getRawButton(5), x3d.getRawButton(6), x3d.getRawButton(3), x3d.getRawButton(4));
 		gearBox.setDoors(input.getAxis(X3D, "SLIDER"));
