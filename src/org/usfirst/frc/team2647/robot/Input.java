@@ -15,27 +15,32 @@ public final class Input {
 	private static class Joy {
 		private Joystick joystick_;
 		private java.util.HashMap<Integer, Boolean> buttons_;
-		private java.util.HashMap<Integer, Double> sticks_;
+		private java.util.HashMap<Integer, Double> axes_;
+		private java.util.HashMap<String, Integer> buttonNames_;
+		private java.util.HashMap<String, Integer> axisNames_;
 		
 		public Joy(int port) {
 			joystick_ = new Joystick(port);
 		}
-
-		public boolean getButton(int key) {
-			if (!(buttons_.containsKey(key))) buttons_.put(key, joystick_.getRawButton(key));
-			return buttons_.get(key);
+		public void addButton(String name, int button) {
+			buttons_.put(name, button);
 		}
-		public double getStick(int key) {
-			if (!(sticks_.containsKey(key))) sticks_.put(key, joystick_.getRawAxis(key));
-			return sticks_.get(key);
+		public void addAxis(String name, int axis) {
+			axes_.put(name, axis);
+		}
+		public boolean getButton(String name) {
+			if (buttonNames_.containsKey(name)) return buttons_.get(buttonNames_.get(name));
+		}
+		public double getAxis(String name) {
+			if (axisNames_.containsKey(name)) return axes_.get(axisNames_.get(name));
 		}
 		
 		public void update() {
-			for (int key : buttons_.keySet()) {
-				buttons_.put(key, joystick_.getRawButton(key));
+			for (int button : buttons_.keySet()) {
+				buttons_.put(key, joystick_.getRawButton(button));
 			}
-			for (int key : sticks_.keySet()) {
-				sticks_.put(key, joystick_.getRawAxis(key));
+			for (int axis : axes_.keySet()) {
+				axes_.put(key, joystick_.getRawAxis(axis));
 			}
 		}
 	}
@@ -48,13 +53,21 @@ public final class Input {
 			joysticks_.put(joyPort, new Joy(joyPort));
 	}
 	
-	public static boolean getButton(int joyPort, int key) {
+	public static void addButton(int joyPort, String name, int button) {
 		checkJoystick(joyPort);
-		return joysticks_.get(joyPort).getButton(key);
+		return joysticks_.get(joyPort).addButton(name, button);
 	}
-	public static double getStick(int joyPort, int key) {
+	public static void addAxis(int joyPort, String name, int axis) {
 		checkJoystick(joyPort);
-		return joysticks_.get(joyPort).getStick(key);
+		return joysticks_.get(joyPort).addAxis(name, axis);
+	}
+	public static boolean getButton(int joyPort, String name) {
+		checkJoystick(joyPort);
+		return joysticks_.get(joyPort).getButton(name);
+	}
+	public static double getAxis(int joyPort, String name) {
+		checkJoystick(joyPort);
+		return joysticks_.get(joyPort).getAxis(name);
 	}
 	public static void update() {
 		for (Joy joystick : joysticks_.values()) {
