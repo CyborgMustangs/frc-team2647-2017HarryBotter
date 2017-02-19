@@ -9,7 +9,7 @@ public class Joy {
 	private java.util.HashMap<String, Button> buttons_;
 	private java.util.HashMap<String, Axis> axes_;
 	
-	public static class Button {
+	private static class Button {
 		public Button(int buttonNum, boolean buttonState) {
 			num = buttonNum;
 			state = buttonState;
@@ -19,7 +19,7 @@ public class Joy {
 		public boolean state;
 		public boolean prevState;
 	}
-	public static class Axis {
+	private static class Axis {
 		public Axis(int axisNum, double axisState) {
 			num = axisNum;
 			state = axisState;
