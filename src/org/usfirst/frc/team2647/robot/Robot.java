@@ -9,6 +9,7 @@ import com.ctre.CANTalon;*/
 import org.usfirst.frc.team2647.robot.Firebolt;
 import org.usfirst.frc.team2647.robot.SnitchPitch;
 import org.usfirst.frc.team2647.robot.HouseGearfindor;
+import org.usfirst.frc.team2647.robot.Basilisk;
 import org.usfirst.frc.team2647.robot.Leviosa;
 import org.usfirst.frc.team2647.robot.Input;
 
