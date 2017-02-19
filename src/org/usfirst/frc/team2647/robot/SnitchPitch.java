@@ -45,8 +45,8 @@ public class SnitchPitch {
 		else{ piston.set(0.0); }
 	}
 	
-	public void shoot(Input input, int joyPort) {
-		boolean controlledFire = input.getJoy(joyPort).getButton("controlledFire");
+	public void shoot(Joy joy) {
+		boolean controlledFire = joy.getButton("controlledFire");
 		if(controlledFire)
 		{
 			if(flywheelsRevved)
@@ -66,10 +66,10 @@ public class SnitchPitch {
 			}
 		}else
 		{
-			boolean flywheelsForward = input.getJoy(joyPort).getButton("flyFor");
-			boolean flywheelsBackward = input.getJoy(joyPort).getButton("flyBack");
-			boolean pistonForward = input.getJoy(joyPort).getButton("pistFor");
-			boolean pistonBackward = input.getJoy(joyPort).getButton("pistBack");
+			boolean flywheelsForward = joy.getButton("flyFor");
+			boolean flywheelsBackward = joy.getButton("flyBack");
+			boolean pistonForward = joy.getButton("pistFor");
+			boolean pistonBackward = joy.getButton("pistBack");
 			flywheelsTimeStarted = false;
 			flywheelsRevved = false;
 			flywheelsRevDeltaTime = 0.0;

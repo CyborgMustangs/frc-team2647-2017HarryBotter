@@ -10,11 +10,11 @@ public class Basilisk {
 		//feeder.setInverted(true);
 	}
 	
-	public void intake(Input input, int joyPort){
-		boolean in = input.getJoy(joyPort).getButton("feedIn");
+	public void intake(Joy joy){
+		boolean in = joy.getButton("feedIn");
 		if(in) feeder.set(-1.0);
 		else {
-			boolean out = input.getJoy(joyPort).getButton("feedOut");
+			boolean out = joy.getButton("feedOut");
 			if(out) feeder.set(1.0);
 			else feeder.set(0.0);
 		}

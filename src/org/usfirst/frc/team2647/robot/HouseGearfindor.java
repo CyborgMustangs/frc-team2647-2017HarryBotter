@@ -27,8 +27,8 @@ public class HouseGearfindor {
 		}
 	}
 	
-	public void setDoors(Input input, int joyPort) {
-		double slide = input.getJoy(joyPort).getAxis("doorPos");
+	public void setDoors(Joy joy) {
+		double slide = joy.getAxis("doorPos");
 		if( (slide < 0) && (leftClosePos - left.get() > 0.1) && (rightClosePos - right.get() > 0.1))
 		{
 			left.set(leftClosePos);

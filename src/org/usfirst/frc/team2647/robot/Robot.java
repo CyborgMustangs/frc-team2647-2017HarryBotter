@@ -21,10 +21,10 @@ import org.usfirst.frc.team2647.robot.Input;
  */
 public class Robot extends IterativeRobot {
 	
-	Input input;
+	Input input = Input.getInstance();
 	
 	// Xbox 360 gamepad
-	static final int X360 = 2;
+	final Joy X360 = input.getJoy(2);
 	
 	static final int xb_A = 1, xb_B = 2, xb_X = 3, xb_Y = 4,
 			 xb_LB = 5, xb_RB = 6, xb_SELECT = 7, xb_START = 8,
@@ -34,7 +34,7 @@ public class Robot extends IterativeRobot {
 			 xb_RSTICKX = 4, xb_RSTICKY = 5;
 	
 	// Extreme 3D Joystick
-	static final int X3D = 0;
+	final Joy X3D = input.getJoy(0);
 	
 	static final int x3d_X = 0, x3d_Y = 1, x3d_Z = 2, x3d_Slider = 3;
 	
@@ -57,21 +57,21 @@ public class Robot extends IterativeRobot {
 	//When this is done with, be sure to only init the buttons you need or you'll be wasting CPU cycles!!!
 		
 	//xbox 360
-		input.getJoy(X360).setButton("feedIn", xb_LB);
-		input.getJoy(X360).setButton("feedOut", xb_RB);
+		X360.setButton("feedIn", xb_LB);
+		X360.setButton("feedOut", xb_RB);
 		
-		input.getJoy(X360).setAxis("lDrive", xb_LSTICKY);
-		input.getJoy(X360).setAxis("rDrive", xb_RSTICKY);
+		X360.setAxis("lDrive", xb_LSTICKY);
+		X360.setAxis("rDrive", xb_RSTICKY);
 	//extreme 3d joystick
-		input.getJoy(X3D).setButton("controlledFire", 1);
-		input.getJoy(X3D).setButton("flyFor", 5);
-		input.getJoy(X3D).setButton("flyBack", 6);
-		input.getJoy(X3D).setButton("pistFor", 3);
-		input.getJoy(X3D).setButton("pistBack", 4);
-		input.getJoy(X3D).setButton("climbUp", 8);
-		input.getJoy(X3D).setButton("climbDown", 7);
+		X3D.setButton("controlledFire", 1);
+		X3D.setButton("flyFor", 5);
+		X3D.setButton("flyBack", 6);
+		X3D.setButton("pistFor", 3);
+		X3D.setButton("pistBack", 4);
+		X3D.setButton("climbUp", 8);
+		X3D.setButton("climbDown", 7);
 		
-		input.getJoy(X3D).setAxis("doorPos", x3d_Slider);
+		X3D.setAxis("doorPos", x3d_Slider);
 	}
 	
 	/**
@@ -80,7 +80,6 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-		input = Input.getInstance();
 		drivetrain = new Firebolt(1, 2, 3, 4); // CAN ports. Front left motor, rear left motor, front right motor, rear right motord	
 		shooter = new SnitchPitch(0, 1, 2); // PWN ports. Top motor, bottom motor, piston motor.
 		gearBox = new HouseGearfindor(3,4); // PWM ports. Left door servo, right door servo.
@@ -120,11 +119,11 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		// Input Checking
 		input.update();
-		drivetrain.tankdrive(input, X360);
-		shooter.shoot(input, X3D);
-		gearBox.setDoors(input, X3D);
-		climber.climb(input, X3D);
-		feeder.intake(input, X360);
+		drivetrain.tankdrive(X360);
+		shooter.shoot(X3D);
+		gearBox.setDoors(X3D);
+		climber.climb(X3D);
+		feeder.intake(X360);
 	}
 
 	/**
