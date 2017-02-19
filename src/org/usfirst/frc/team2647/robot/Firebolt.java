@@ -3,6 +3,8 @@ package org.usfirst.frc.team2647.robot;
 import com.ctre.CANTalon;
 import edu.wpi.first.wpilibj.RobotDrive;
 
+import org.usfirst.frc.team2647.robot.Input;
+
 // named after Harry's broomstick
 public class Firebolt {
 	private CANTalon frontLeft;
@@ -35,14 +37,16 @@ public class Firebolt {
 		drive.setSafetyEnabled(false);
 	}
 	
-	public void tankdrive(double speedlstick, double speedrstick){
+	public void tankdrive(Input input, int joyPort){
 		//bounds checking
-		if(speedlstick < -1.0) speedlstick = -1.0;
-		else if(speedlstick > 1.0) speedlstick = 1.0;
-		if(speedrstick < -1.0) speedrstick = -1.0;
-		else if(speedrstick > 1.0) speedrstick = 1.0;
+		double leftVel = input.getJoy(joyPort).getAxis("lDrive") * 0.7;
+		double rightVel = input.getJoy(joyPort).getAxis("rDrive") * 0.7;
+		if(leftVel < -1.0) leftVel = -1.0;
+		else if(leftVel > 1.0) leftVel = 1.0;
+		if(rightVel < -1.0) rightVel = -1.0;
+		else if(rightVel > 1.0) rightVel = 1.0;
 		
-		drive.tankDrive(speedlstick, speedrstick, squaredScalingEnabled);
+		drive.tankDrive(leftVel, rightVel, squaredScalingEnabled);
 	}
 	
 	public void arcadeDrive(double speed, double rot){

@@ -9,7 +9,6 @@ import com.ctre.CANTalon;*/
 import org.usfirst.frc.team2647.robot.Firebolt;
 import org.usfirst.frc.team2647.robot.SnitchPitch;
 import org.usfirst.frc.team2647.robot.HouseGearfindor;
-import org.usfirst.frc.team2647.robot.Basilisk;
 import org.usfirst.frc.team2647.robot.Leviosa;
 import org.usfirst.frc.team2647.robot.Input;
 
@@ -27,8 +26,17 @@ public class Robot extends IterativeRobot {
 	// Xbox 360 gamepad
 	static final int X360 = 2;
 	
+	static final int xb_A = 1, xb_B = 2, xb_X = 3, xb_Y = 4,
+			 xb_LB = 5, xb_RB = 6, xb_SELECT = 7, xb_START = 8,
+			 xb_LSTICK = 9, xb_RSTICK = 10;
+	static final int xb_LSTICKX = 0, xb_LSTICKY = 1,
+			 xb_LT = 2, xb_RT = 3,
+			 xb_RSTICKX = 4, xb_RSTICKY = 5;
+	
 	// Extreme 3D Joystick
 	static final int X3D = 0;
+	
+	static final int x3d_X = 0, x3d_Y = 1, x3d_Z = 2, x3d_Slider = 3;
 	
 	// Drivetrain
 	Firebolt drivetrain;
@@ -49,29 +57,21 @@ public class Robot extends IterativeRobot {
 	//When this is done with, be sure to only init the buttons you need or you'll be wasting CPU cycles!!!
 		
 	//xbox 360
-		input.getJoy(X360).setButton("A", 1);
-		input.getJoy(X360).setButton("B", 2);
-		input.getJoy(X360).setButton("X", 3);
-		input.getJoy(X360).setButton("Y", 4);
-		input.getJoy(X360).setButton("LB", 5);
-		input.getJoy(X360).setButton("RB", 6);
-		input.getJoy(X360).setButton("SELECT", 7);
-		input.getJoy(X360).setButton("START", 8);
-		input.getJoy(X360).setButton("LSTICK", 9);
-		input.getJoy(X360).setButton("RSTICK", 10);
+		input.getJoy(X360).setButton("feedIn", xb_LB);
+		input.getJoy(X360).setButton("feedOut", xb_RB);
 		
-		input.getJoy(X360).setAxis("LSTICKX", 0);
-		input.getJoy(X360).setAxis("LSTICKY", 1);
-		input.getJoy(X360).setAxis("LT", 2);
-		input.getJoy(X360).setAxis("RT", 3);
-		input.getJoy(X360).setAxis("RSTICKX", 4);
-		input.getJoy(X360).setAxis("RSTICKY", 5);
+		input.getJoy(X360).setAxis("lDrive", xb_LSTICKY);
+		input.getJoy(X360).setAxis("rDrive", xb_RSTICKY);
 	//extreme 3d joystick
-		//more to be defined
-		input.getJoy(X3D).setAxis("X", 0);
-		input.getJoy(X3D).setAxis("Y", 1);
-		input.getJoy(X3D).setAxis("Z", 2);
-		input.getJoy(X3D).setAxis("SLIDER", 3);
+		input.getJoy(X3D).setButton("controlledFire", 1);
+		input.getJoy(X3D).setButton("flyFor", 5);
+		input.getJoy(X3D).setButton("flyBack", 6);
+		input.getJoy(X3D).setButton("pistFor", 3);
+		input.getJoy(X3D).setButton("pistBack", 4);
+		input.getJoy(X3D).setButton("climbUp", 8);
+		input.getJoy(X3D).setButton("climbDown", 7);
+		
+		input.getJoy(X3D).setAxis("doorPos", x3d_Slider);
 	}
 	
 	/**
@@ -120,11 +120,11 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		// Input Checking
 		input.update();
-		drivetrain.tankdrive(-input.getJoy(X360).getAxis("LSTICKY") * 0.7, -input.getJoy(X360).getAxis("RSTICKY") * 0.7);
-		//shooter.shoot(x3d.getRawButton(1), x3d.getRawButton(5), x3d.getRawButton(6), x3d.getRawButton(3), x3d.getRawButton(4));
-		gearBox.setDoors(input.getJoy(X3D).getAxis("SLIDER"));
-		//climber.climb(x3d.getRawButton(8), x3d.getRawButton(7));
-		feeder.intake(input.getJoy(X360).getButton("LB"), input.getJoy(X360).getButton("RB"));
+		drivetrain.tankdrive(input, X360);
+		shooter.shoot(input, X3D);
+		gearBox.setDoors(input, X3D);
+		climber.climb(input, X3D);
+		feeder.intake(input, X360);
 	}
 
 	/**
