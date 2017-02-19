@@ -1,7 +1,5 @@
 package org.usfirst.frc.team2647.robot;
 
-import java.util.Map;
-
 import edu.wpi.first.wpilibj.Joystick;
 
 public class Joy {
