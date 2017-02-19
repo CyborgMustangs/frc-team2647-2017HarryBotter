@@ -2,10 +2,10 @@ package org.usfirst.frc.team2647.robot;
 
 import edu.wpi.first.wpilibj.Talon;
 
-public class Baskilisk {
+public class Basilisk {
 	private Talon feeder;
 	
-	public Baskilisk(int feederPort){
+	public Basilisk(int feederPort){
 		feeder = new Talon(feederPort);
 		//feeder.setInverted(true);
 	}

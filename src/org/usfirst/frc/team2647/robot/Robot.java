@@ -9,6 +9,7 @@ import com.ctre.CANTalon;*/
 import org.usfirst.frc.team2647.robot.Firebolt;
 import org.usfirst.frc.team2647.robot.SnitchPitch;
 import org.usfirst.frc.team2647.robot.HouseGearfindor;
+import org.usfirst.frc.team2647.robot.Basilisk;
 import org.usfirst.frc.team2647.robot.Leviosa;
 import org.usfirst.frc.team2647.robot.Input;
 
@@ -39,7 +40,7 @@ public class Robot extends IterativeRobot {
 	HouseGearfindor gearBox;
 	
 	// Intake
-	Baskilisk feeder;
+	Basilisk feeder;
 	
 	// Climber
 	Leviosa climber;
@@ -83,7 +84,7 @@ public class Robot extends IterativeRobot {
 		drivetrain = new Firebolt(1, 2, 3, 4); // CAN ports. Front left motor, rear left motor, front right motor, rear right motord	
 		shooter = new SnitchPitch(0, 1, 2); // PWN ports. Top motor, bottom motor, piston motor.
 		gearBox = new HouseGearfindor(3,4); // PWM ports. Left door servo, right door servo.
-		feeder = new Baskilisk(5);
+		feeder = new Basilisk(5);
 		climber = new Leviosa(6);
 		initControllers();
 	}
