@@ -1,16 +1,17 @@
 package org.usfirst.frc.team2647.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import com.ctre.CANTalon;
+/*unused imports
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import com.ctre.CANTalon;*/
 
 import org.usfirst.frc.team2647.robot.Firebolt;
 import org.usfirst.frc.team2647.robot.SnitchPitch;
 import org.usfirst.frc.team2647.robot.HouseGearfindor;
 import org.usfirst.frc.team2647.robot.Basilisk;
 import org.usfirst.frc.team2647.robot.Leviosa;
+import org.usfirst.frc.team2647.robot.Input;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -20,18 +21,22 @@ import org.usfirst.frc.team2647.robot.Leviosa;
  * directory.
  */
 public class Robot extends IterativeRobot {
-
+	
+	Input input = Input.getInstance();
+	
 	// Xbox 360 gamepad
-	Joystick gamepad;
+	final Joy X360 = input.getJoy(2);
+	
 	static final int xb_A = 1, xb_B = 2, xb_X = 3, xb_Y = 4,
-					 xb_LB = 5, xb_RB = 6, xb_SELECT = 7, xb_START = 8,
-					 xb_LSTICK = 9, xb_RSTICK = 10;
+			 xb_LB = 5, xb_RB = 6, xb_SELECT = 7, xb_START = 8,
+			 xb_LSTICK = 9, xb_RSTICK = 10;
 	static final int xb_LSTICKX = 0, xb_LSTICKY = 1,
-					 xb_LT = 2, xb_RT = 3,
-					 xb_RSTICKX = 4, xb_RSTICKY = 5;
+			 xb_LT = 2, xb_RT = 3,
+			 xb_RSTICKX = 4, xb_RSTICKY = 5;
 	
 	// Extreme 3D Joystick
-	Joystick x3d;
+	final Joy X3D = input.getJoy(0);
+	
 	static final int x3d_X = 0, x3d_Y = 1, x3d_Z = 2, x3d_Slider = 3;
 	
 	// Drivetrain
@@ -49,6 +54,27 @@ public class Robot extends IterativeRobot {
 	// Climber
 	Leviosa climber;
 	
+	public void initControllers() {
+	//When this is done with, be sure to only init the buttons you need or you'll be wasting CPU cycles!!!
+		
+	//xbox 360
+		X360.setButton("feedIn", xb_LB);
+		X360.setButton("feedOut", xb_RB);
+		
+		X360.setAxis("lDrive", xb_LSTICKY);
+		X360.setAxis("rDrive", xb_RSTICKY);
+	//extreme 3d joystick
+		X3D.setButton("controlledFire", 1);
+		X3D.setButton("flyFor", 5);
+		X3D.setButton("flyBack", 6);
+		X3D.setButton("pistFor", 3);
+		X3D.setButton("pistBack", 4);
+		X3D.setButton("climbUp", 8);
+		X3D.setButton("climbDown", 7);
+		
+		X3D.setAxis("doorPos", x3d_Slider);
+	}
+	
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -56,12 +82,11 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		drivetrain = new Firebolt(1, 2, 3, 4); // CAN ports. Front left motor, rear left motor, front right motor, rear right motord	
-		gamepad = new Joystick(2);
-		x3d = new Joystick(0);
 		shooter = new SnitchPitch(0, 1, 2); // PWN ports. Top motor, bottom motor, piston motor.
 		gearBox = new HouseGearfindor(3,4); // PWM ports. Left door servo, right door servo.
 		feeder = new Basilisk(5);
 		climber = new Leviosa(6);
+		initControllers();
 	}
 
 	/**
@@ -94,11 +119,12 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		// Input Checking
-		drivetrain.tankdrive(-gamepad.getRawAxis(xb_LSTICKY) * 0.7, -gamepad.getRawAxis(xb_RSTICKY) * 0.7);
-		shooter.shoot(x3d.getRawButton(1), x3d.getRawButton(5), x3d.getRawButton(6), x3d.getRawButton(3), x3d.getRawButton(4));
-		gearBox.setDoors(x3d.getRawAxis(x3d_Slider));
-		climber.climb(x3d.getRawButton(8), x3d.getRawButton(7));
-		feeder.intake(gamepad.getRawButton(xb_LB), gamepad.getRawButton(xb_RB));
+		input.update();
+		drivetrain.tankdrive(X360);
+		shooter.shoot(X3D);
+		gearBox.setDoors(X3D);
+		climber.climb(X3D);
+		feeder.intake(X360);
 	}
 
 	/**

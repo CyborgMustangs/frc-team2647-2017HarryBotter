@@ -9,9 +9,13 @@ public class Leviosa {
 		climbMotor = new Talon(climbMotorPort);
 	}
 	
-	public void climb(boolean up, boolean down){
+	public void climb(Joy joy){
+		boolean up = joy.getButton("climbUp");
 		if(up) climbMotor.set(-1.0);
-		else if(down) climbMotor.set(1.0);
-		else climbMotor.set(0.0);
+		else {
+			boolean down = joy.getButton("climbDown");
+			if(down) climbMotor.set(1.0);
+			else climbMotor.set(0.0);
+		}
 	}
 }

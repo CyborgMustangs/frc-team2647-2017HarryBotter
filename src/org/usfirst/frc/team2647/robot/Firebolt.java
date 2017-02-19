@@ -35,14 +35,16 @@ public class Firebolt {
 		drive.setSafetyEnabled(false);
 	}
 	
-	public void tankdrive(double speedlstick, double speedrstick){
+	public void tankdrive(Joy joy){
 		//bounds checking
-		if(speedlstick < -1.0) speedlstick = -1.0;
-		else if(speedlstick > 1.0) speedlstick = 1.0;
-		if(speedrstick < -1.0) speedrstick = -1.0;
-		else if(speedrstick > 1.0) speedrstick = 1.0;
+		double leftVel = joy.getAxis("lDrive") * 0.7;
+		double rightVel = joy.getAxis("rDrive") * 0.7;
+		if(leftVel < -1.0) leftVel = -1.0;
+		else if(leftVel > 1.0) leftVel = 1.0;
+		if(rightVel < -1.0) rightVel = -1.0;
+		else if(rightVel > 1.0) rightVel = 1.0;
 		
-		drive.tankDrive(speedlstick, speedrstick, squaredScalingEnabled);
+		drive.tankDrive(leftVel, rightVel, squaredScalingEnabled);
 	}
 	
 	public void arcadeDrive(double speed, double rot){

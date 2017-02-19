@@ -17,7 +17,7 @@ public class HouseGearfindor {
 		right = new Servo(rightPort);
 	}
 	
-	public void setDoors(boolean openButton, boolean closeButton){
+	public void setDoors(boolean openButton, boolean closeButton) {
 		if (openButton){
 			left.set(leftOpenPos);
 			right.set(rightOpenPos);
@@ -27,8 +27,8 @@ public class HouseGearfindor {
 		}
 	}
 	
-	public void setDoors(double slide)
-	{
+	public void setDoors(Joy joy) {
+		double slide = joy.getAxis("doorPos");
 		if( (slide < 0) && (leftClosePos - left.get() > 0.1) && (rightClosePos - right.get() > 0.1))
 		{
 			left.set(leftClosePos);
