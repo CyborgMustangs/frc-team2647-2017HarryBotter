@@ -1,16 +1,17 @@
 package org.usfirst.frc.team2647.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import com.ctre.CANTalon;
+/*unused imports
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import com.ctre.CANTalon;*/
 
 import org.usfirst.frc.team2647.robot.Firebolt;
 import org.usfirst.frc.team2647.robot.SnitchPitch;
 import org.usfirst.frc.team2647.robot.HouseGearfindor;
 import org.usfirst.frc.team2647.robot.Basilisk;
 import org.usfirst.frc.team2647.robot.Leviosa;
+import org.usfirst.frc.team2647.robot.Input;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -20,19 +21,14 @@ import org.usfirst.frc.team2647.robot.Leviosa;
  * directory.
  */
 public class Robot extends IterativeRobot {
-
+	
+	Input input;
+	
 	// Xbox 360 gamepad
-	Joystick gamepad;
-	static final int xb_A = 1, xb_B = 2, xb_X = 3, xb_Y = 4,
-					 xb_LB = 5, xb_RB = 6, xb_SELECT = 7, xb_START = 8,
-					 xb_LSTICK = 9, xb_RSTICK = 10;
-	static final int xb_LSTICKX = 0, xb_LSTICKY = 1,
-					 xb_LT = 2, xb_RT = 3,
-					 xb_RSTICKX = 4, xb_RSTICKY = 5;
+	static final int X360 = 2;
 	
 	// Extreme 3D Joystick
-	Joystick x3d;
-	static final int x3d_X = 0, x3d_Y = 1, x3d_Z = 2, x3d_Slider = 3;
+	static final int X3D = 0;
 	
 	// Drivetrain
 	Firebolt drivetrain;
@@ -49,19 +45,48 @@ public class Robot extends IterativeRobot {
 	// Climber
 	Leviosa climber;
 	
+	public void initControllers() {
+	//When this is done with, be sure to only init the buttons you need or you'll be wasting CPU cycles!!!
+		
+	//xbox 360
+		input.getJoy(X360).setButton("A", 1);
+		input.getJoy(X360).setButton("B", 2);
+		input.getJoy(X360).setButton("X", 3);
+		input.getJoy(X360).setButton("Y", 4);
+		input.getJoy(X360).setButton("LB", 5);
+		input.getJoy(X360).setButton("RB", 6);
+		input.getJoy(X360).setButton("SELECT", 7);
+		input.getJoy(X360).setButton("START", 8);
+		input.getJoy(X360).setButton("LSTICK", 9);
+		input.getJoy(X360).setButton("RSTICK", 10);
+		
+		input.getJoy(X360).setAxis("LSTICKX", 0);
+		input.getJoy(X360).setAxis("LSTICKY", 1);
+		input.getJoy(X360).setAxis("LT", 2);
+		input.getJoy(X360).setAxis("RT", 3);
+		input.getJoy(X360).setAxis("RSTICKX", 4);
+		input.getJoy(X360).setAxis("RSTICKY", 5);
+	//extreme 3d joystick
+		//more to be defined
+		input.getJoy(X3D).setAxis("X", 0);
+		input.getJoy(X3D).setAxis("Y", 1);
+		input.getJoy(X3D).setAxis("Z", 2);
+		input.getJoy(X3D).setAxis("SLIDER", 3);
+	}
+	
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
 	 */
 	@Override
 	public void robotInit() {
+		input = Input.getInstance();
 		drivetrain = new Firebolt(1, 2, 3, 4); // CAN ports. Front left motor, rear left motor, front right motor, rear right motord	
-		gamepad = new Joystick(2);
-		x3d = new Joystick(0);
 		shooter = new SnitchPitch(0, 1, 2); // PWN ports. Top motor, bottom motor, piston motor.
 		gearBox = new HouseGearfindor(3,4); // PWM ports. Left door servo, right door servo.
 		feeder = new Basilisk(5);
 		climber = new Leviosa(6);
+		initControllers();
 	}
 
 	/**
@@ -94,11 +119,12 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		// Input Checking
-		drivetrain.tankdrive(-gamepad.getRawAxis(xb_LSTICKY) * 0.7, -gamepad.getRawAxis(xb_RSTICKY) * 0.7);
-		shooter.shoot(x3d.getRawButton(1), x3d.getRawButton(5), x3d.getRawButton(6), x3d.getRawButton(3), x3d.getRawButton(4));
-		gearBox.setDoors(x3d.getRawAxis(x3d_Slider));
-		climber.climb(x3d.getRawButton(8), x3d.getRawButton(7));
-		feeder.intake(gamepad.getRawButton(xb_LB), gamepad.getRawButton(xb_RB));
+		input.update();
+		drivetrain.tankdrive(-input.getJoy(X360).getAxis("LSTICKY") * 0.7, -input.getJoy(X360).getAxis("RSTICKY") * 0.7);
+		//shooter.shoot(x3d.getRawButton(1), x3d.getRawButton(5), x3d.getRawButton(6), x3d.getRawButton(3), x3d.getRawButton(4));
+		gearBox.setDoors(input.getJoy(X3D).getAxis("SLIDER"));
+		//climber.climb(x3d.getRawButton(8), x3d.getRawButton(7));
+		feeder.intake(input.getJoy(X360).getButton("LB"), input.getJoy(X360).getButton("RB"));
 	}
 
 	/**
