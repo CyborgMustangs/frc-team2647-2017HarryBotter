@@ -11,9 +11,11 @@ public class Leviosa {
 	
 	public void climb(Input input, int joyPort){
 		boolean up = input.getJoy(joyPort).getButton("climbUp");
-		boolean down = input.getJoy(joyPort).getButton("climbDown");
 		if(up) climbMotor.set(-1.0);
-		else if(down) climbMotor.set(1.0);
-		else climbMotor.set(0.0);
+		else {
+			boolean down = input.getJoy(joyPort).getButton("climbDown");
+			if(down) climbMotor.set(1.0);
+			else climbMotor.set(0.0);
+		}
 	}
 }
