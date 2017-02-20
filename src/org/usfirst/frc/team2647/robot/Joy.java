@@ -1,5 +1,7 @@
 package org.usfirst.frc.team2647.robot;
 
+import java.util.HashMap;
+
 import edu.wpi.first.wpilibj.Joystick;
 
 public class Joy {
@@ -28,6 +30,8 @@ public class Joy {
 	
 	public Joy(int port) {
 		joystick_ = new Joystick(port);
+		buttons_ = new HashMap<String, Button>();
+		axes_ = new HashMap<String, Axis>();
 	}
 	public void setButton(String name, int buttonNum) {
 		buttons_.put(name, new Button(buttonNum, joystick_.getRawButton(buttonNum)));
