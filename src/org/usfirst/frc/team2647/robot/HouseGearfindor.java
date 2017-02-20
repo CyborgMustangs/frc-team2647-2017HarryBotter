@@ -29,11 +29,11 @@ public class HouseGearfindor {
 	
 	public void setDoors(Joy joy) {
 		double slide = joy.getAxis("doorPos");
-		if( (slide < 0) && (leftClosePos - left.get() > 0.1) && (rightClosePos - right.get() > 0.1))
+		if( (slide < 0) && (leftClosePos - left.get() > 0.1) || (rightClosePos - right.get() > 0.1))
 		{
 			left.set(leftClosePos);
 			right.set(rightClosePos);
-		}else if( (slide > 0) && (leftOpenPos - left.get() > 0.1) && (rightOpenPos - right.get() > 0.1))
+		}else if( (slide > 0) && (leftOpenPos - left.get() > 0.1) || (rightOpenPos - right.get() > 0.1))
 		{
 			left.set(leftOpenPos);
 			right.set(rightOpenPos);
