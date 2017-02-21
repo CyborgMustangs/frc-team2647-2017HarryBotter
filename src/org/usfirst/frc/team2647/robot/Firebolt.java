@@ -2,6 +2,7 @@ package org.usfirst.frc.team2647.robot;
 
 import com.ctre.CANTalon;
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 
 // named after Harry's broomstick
 public class Firebolt {
@@ -10,6 +11,7 @@ public class Firebolt {
 	private CANTalon frontRight;
 	private CANTalon rearRight;
 	private RobotDrive drive;
+	private ADXRS450_Gyro gyro;
 	
 	//Squared scaling - creates a smoother driving experience by squaring input values.
 	private boolean squaredScalingEnabled = false;
@@ -33,6 +35,8 @@ public class Firebolt {
 		rearRight.enable();
 		drive = new RobotDrive(frontLeft, rearLeft, frontRight, rearRight);
 		drive.setSafetyEnabled(false);
+		gyro = new ADXRS450_Gyro();
+		gyro.calibrate();
 	}
 	
 	public void tankdrive(Joy joy){
@@ -57,7 +61,15 @@ public class Firebolt {
 		drive.arcadeDrive(speed, rot, squaredScalingEnabled);
 	}
 	
-	public void test(boolean port1on, boolean port2on, boolean port3on, boolean port4on){
+	public double getHeading() {
+		return gyro.getAngle();
+	}
+	
+	public double getRotRate() {
+		return gyro.getRate();
+	}
+	
+	/*public void test(boolean port1on, boolean port2on, boolean port3on, boolean port4on){
 		if(port1on) frontLeft.set(0.5);
 		else frontLeft.set(0.0);
 		
@@ -69,6 +81,6 @@ public class Firebolt {
 		
 		if(port4on) rearRight.set(0.5);
 		else rearRight.set(0.0);
-	}
+	}*/
 	
 }

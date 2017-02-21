@@ -12,6 +12,7 @@ import org.usfirst.frc.team2647.robot.HouseGearfindor;
 import org.usfirst.frc.team2647.robot.Basilisk;
 import org.usfirst.frc.team2647.robot.Leviosa;
 import org.usfirst.frc.team2647.robot.Input;
+import edu.wpi.first.wpilibj.AnalogPotentiometer; //For auto selection
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -23,6 +24,15 @@ import org.usfirst.frc.team2647.robot.Input;
 public class Robot extends IterativeRobot {
 	
 	Input input = Input.getInstance();
+	
+	//Auton declarations
+	int autoMode;
+	int autoPhase;
+	final int AUTO_DEFAULT = 0;
+	final int AUTO_MIDDLE_PEG = 1;
+	final int AUTO_FORWARD_SCORE = 2;
+	final int AUTO_LEFT_SHOOT = 3;
+	final int AUTO_MIDDLE_PEG_LEFT_SHOOT = 4;
 	
 	// Xbox 360 gamepad
 	final Joy X360 = input.getJoy(2);
@@ -102,7 +112,9 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		
+		if(true){
+			
+		}
 	}
 
 	/**
