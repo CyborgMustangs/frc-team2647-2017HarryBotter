@@ -3,6 +3,7 @@ package org.usfirst.frc.team2647.robot;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.DigitalInput; // Will be used for the pistonDisengaged and ballReady limit switches.
 
 public class SnitchPitch {
 	private Spark top;
