@@ -49,36 +49,22 @@ public class HouseGearfindor {
 		}
 	}
 	
-	public void setRampLeft(Joy joy) {
+	/*public void setRampLeft(Joy joy) {
 		double slide = joy.getAxis("rampPos");
-		if( (slide < 0)) {
-			if(leftRampClosePos - leftRamp.get() > 0.1) leftRamp.set(leftRampClosePos);
-		}
-		else if( (slide > 0)) {
-			if(leftRampOpenPos - leftRamp.get() > 0.1) leftRamp.set(leftRampOpenPos);
-		}
+		leftRamp.set((slide + 1) / 2);
 	}
 	
 	public void setRampRight(Joy joy) {
 		double slide = joy.getAxis("rampPos");
-		if( (slide < 0)) {
-			if(rightRampClosePos - rightRamp.get() > 0.1) rightRamp.set(rightRampClosePos);
-		}
-		else if( (slide > 0)) {
-			if(rightRampOpenPos - rightRamp.get() > 0.1) rightRamp.set(rightRampOpenPos);
-		}
-	}
+		rightRamp.set((slide + 1) / 2);
+	}*/
 	
 	public void setRamp(Joy joy) {
 		double slide = joy.getAxis("rampPos");
-		if( (slide < 0)) {
-			if(leftRampClosePos - leftRamp.get() > 0.1) leftRamp.set(leftRampClosePos);
-			if(rightRampClosePos - rightRamp.get() > 0.1) rightRamp.set(rightRampClosePos);
-		}
-		else if( (slide > 0)) {
-			if(leftRampOpenPos - leftRamp.get() > 0.1) leftRamp.set(leftRampOpenPos);
-			if(rightRampOpenPos - rightRamp.get() > 0.1) rightRamp.set(rightRampOpenPos);
-		}
+		double right = ((slide + 1) / 2);
+		double left = Math.abs(right - 0.95); //set to 0.95 instead of 1 because the left is slightly ahead of the right.
+		leftRamp.set(left);
+		rightRamp.set(right);
 	}
 	/* The next two functions are commented out because they are obsolete 
 	 * test functions.
