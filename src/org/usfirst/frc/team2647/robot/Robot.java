@@ -81,8 +81,10 @@ public class Robot extends IterativeRobot {
 		X3D.setButton("pistBack", 4);
 		X3D.setButton("climbUp", 8);
 		X3D.setButton("climbDown", 7);
+		X3D.setButton("doorClose", 10);
+		X3D.setButton("doorOpen", 9);
 		
-		X3D.setAxis("doorPos", x3d_Slider);
+		X3D.setAxis("rampPos", x3d_Slider);
 	}
 	
 	/**
@@ -91,9 +93,9 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-		drivetrain = new Firebolt(1, 2, 3, 4); // CAN ports. Front left motor, rear left motor, front right motor, rear right motord	
+		drivetrain = new Firebolt(1, 2, 3, 4); // CAN ports. Front left motor, rear left motor, front right motor, rear right motor.
 		shooter = new SnitchPitch(0, 1, 2); // PWN ports. Top motor, bottom motor, piston motor.
-		gearBox = new HouseGearfindor(3,4); // PWM ports. Left door servo, right door servo.
+		gearBox = new HouseGearfindor(3,4, 7, 8); // PWM ports. Left door servo, right door servo, left ramp servo, right ramp servo.
 		feeder = new Basilisk(5);
 		climber = new Leviosa(6);
 		initControllers();
@@ -135,6 +137,7 @@ public class Robot extends IterativeRobot {
 		drivetrain.tankdrive(X360);
 		shooter.shoot(X3D);
 		gearBox.setDoors(X3D);
+		gearBox.setRampLeft(X3D);
 		climber.climb(X3D);
 		feeder.intake(X360);
 	}
