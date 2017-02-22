@@ -35,8 +35,8 @@ public class Firebolt {
 		rearRight.enable();
 		drive = new RobotDrive(frontLeft, rearLeft, frontRight, rearRight);
 		drive.setSafetyEnabled(false);
-		gyro = new ADXRS450_Gyro();
-		gyro.calibrate();
+		//gyro = new ADXRS450_Gyro();
+		//gyro.calibrate();
 	}
 	
 	public void tankdrive(Joy joy){
@@ -61,13 +61,13 @@ public class Firebolt {
 		drive.arcadeDrive(speed, rot, squaredScalingEnabled);
 	}
 	
-	public double getHeading() {
+	/*public double getHeading() {
 		return gyro.getAngle();
 	}
 	
 	public double getRotRate() {
 		return gyro.getRate();
-	}
+	}*/
 	
 	/*public void test(boolean port1on, boolean port2on, boolean port3on, boolean port4on){
 		if(port1on) frontLeft.set(0.5);

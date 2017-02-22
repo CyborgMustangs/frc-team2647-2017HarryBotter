@@ -135,9 +135,9 @@ public class Robot extends IterativeRobot {
 		// Input Checking
 		input.update();
 		drivetrain.tankdrive(X360);
-		shooter.shoot(X3D);
+		//shooter.shoot(X3D);
 		gearBox.setDoors(X3D);
-		gearBox.setRampLeft(X3D);
+		gearBox.setRamp(X3D);
 		climber.climb(X3D);
 		feeder.intake(X360);
 	}
