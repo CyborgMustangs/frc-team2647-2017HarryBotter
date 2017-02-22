@@ -41,8 +41,8 @@ public class Firebolt {
 	
 	public void tankdrive(Joy joy){
 		//bounds checking
-		double leftVel = joy.getAxis("lDrive") * 0.7;
-		double rightVel = joy.getAxis("rDrive") * 0.7;
+		double leftVel = -joy.getAxis("lDrive") * 0.7;
+		double rightVel = -joy.getAxis("rDrive") * 0.7;
 		if(leftVel < -1.0) leftVel = -1.0;
 		else if(leftVel > 1.0) leftVel = 1.0;
 		if(rightVel < -1.0) rightVel = -1.0;
